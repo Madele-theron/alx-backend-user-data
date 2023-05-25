@@ -5,11 +5,35 @@ import re
 from typing import List
 
 
+class RedactingFormatter(logging.Formatter):
+    """ Redacting Formatter class
+        """
+
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields: List[str]):
+        """this is the constructor"""
+        self.fields = fields
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+
+    def format(self, record: logging.LogRecord) -> str:
+        """filtered incoming log records"""
+        return filter_datum(
+            self.fields, self.REDACTION, super().format(record),
+              self.SEPARATOR)
+
+
 def filter_datum(
         fields: List[str], redaction: str, message: str, seperator: str
         ) -> str:
     """Returns the log message obfuscated"""
     for field in fields:
         message = re.sub(f"{field}=.+?{seperator}",
-                         f"{field}={redaction}{seperator}", message)
+              f"{field}={redaction}{seperator}", message)
     return message
+
+
+# if __name__ == "__main__":
+#     main()
