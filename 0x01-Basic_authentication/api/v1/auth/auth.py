@@ -31,7 +31,7 @@ class Auth:
         if not path.endswith('/'):
             path += '/'
 
-        # Check if the path matches any excluded path
+        # Check if path matches any excluded path
         for paths in excluded_paths:
             if paths.endswith('*'):
                 if path.startswith(paths[:-1]):
@@ -39,7 +39,7 @@ class Auth:
             elif path == paths:
                 return False
 
-        # If no match is found, auth is required
+        # If no match found, auth is required
         return True
 
 
