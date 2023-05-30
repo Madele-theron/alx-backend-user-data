@@ -24,6 +24,23 @@ class Auth:
         Returns:
             True: if authenticated, else False
         """
+        if path is None or excluded_paths is None or len(excluded_paths) == 0:
+            return True
+
+        # If path doesn't have trailing slash add it.
+        if not path.endswith('/'):
+            path += '/'
+
+        # Check if the path matches any excluded path
+        for paths in excluded_paths:
+            if paths.endswith('*'):
+                if path.startswith(paths):
+                    return False
+            elif path == paths:
+                return False
+
+        # If no match is found, auth is required
+        return True
 
 
 def authorization_header(self, request=None) -> str:
