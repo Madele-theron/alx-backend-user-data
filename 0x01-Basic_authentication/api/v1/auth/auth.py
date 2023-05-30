@@ -34,7 +34,7 @@ class Auth:
         # Check if the path matches any excluded path
         for paths in excluded_paths:
             if paths.endswith('*'):
-                if path.startswith(paths):
+                if path.startswith(paths[:-1]):
                     return False
             elif path == paths:
                 return False
