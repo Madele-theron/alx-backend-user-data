@@ -34,10 +34,11 @@ class Auth:
         # Check if path matches any excluded path
         for paths in excluded_paths:
             if paths.endswith('*'):
-                if path.startswith(paths[:-1]):
+                if path.startswith(paths[:1]):
                     return False
-            elif path == paths:
+            if path in excluded_paths:
                 return False
+            return True
 
         # If no match found, auth is required
         return True
