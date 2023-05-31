@@ -45,14 +45,15 @@ def decode_base64_authorization_header(
     Returns:
         str: decoded header, else None
     """
-    if base64_authorization_header is None or\
-            not isinstance(base64_authorization_header, str):
+    if base64_authorization_header is None:
+        return None
+    if not isinstance(base64_authorization_header, str):
         return None
 
     try:
         decode_header = b64decode(base64_authorization_header)
         return decode_header.decode('utf-8')
-    except binascii.Error as error:
+    except binascii.Error:
         return None
 
 
