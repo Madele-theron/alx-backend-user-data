@@ -69,4 +69,4 @@ def current_user(self, request=None) -> TypeVar('User'):
     Return:
         the authenticated user
     """
-    return request
+    return None
