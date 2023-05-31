@@ -77,7 +77,7 @@ def before_request() -> str:
     if not (auth.require_auth(request.path, expath)):
         return
 
-    if (auth.require_auth(request)) is None:
+    if (auth.authorization_header(request)) is None:
         abort(401)
 
     if (auth.current_user(request)) is None:
