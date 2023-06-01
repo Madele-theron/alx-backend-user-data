@@ -31,7 +31,7 @@ class Auth:
             if paths.endswith('*'):
                 if path.startswith(paths[:-1]):
                     return False
-            elif path == paths:
+            if path in excluded_paths:
                 return False
         return True
 
@@ -45,9 +45,9 @@ def authorization_header(self, request=None) -> str:
     Returns:
         str: the auth header or None
     """
-    if request is not None:
-        return request.headers.get('Authorization', None)
-    return None
+    if request is None:
+            return None
+    return request.headers.get('Authorization', None)
 
 
 def current_user(self, request=None) -> TypeVar('User'):
