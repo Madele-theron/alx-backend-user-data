@@ -46,7 +46,7 @@ def authorization_header(self, request=None) -> str:
         str: the auth header or None
     """
     if request is None:
-            return None
+        return None
     return request.headers.get('Authorization', None)
 
 
