@@ -50,11 +50,9 @@ def authorization_header(self, request=None) -> str:
     Returns:
         str: the auth header or None
     """
-    if request is None:
-        return None
-    if not request.headers.get("Authorization"):
-        return None
-    return request.headers.get("Authorization")
+    if request is not None:
+        return request.headers.get('Authorization', None)
+    return None
 
 
 def current_user(self, request=None) -> TypeVar('User'):
