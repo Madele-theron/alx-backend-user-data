@@ -40,9 +40,6 @@ class Auth:
                 return False
             return True
 
-        # If no match found, auth is required
-        return True
-
 
 def authorization_header(self, request=None) -> str:
     """Auth headers

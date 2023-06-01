@@ -12,8 +12,6 @@ class BasicAuth(Auth):
     """Manages basic authentication
     """
 
-    def __init__(self):
-        """This is the constructor"""
 
     def extract_base64_authorization_header(
                                             self,
