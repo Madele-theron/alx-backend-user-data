@@ -37,27 +37,27 @@ class Auth:
         return True
 
 
-def authorization_header(self, request=None) -> str:
-    """Auth headers
+    def authorization_header(self, request=None) -> str:
+        """Auth headers
 
-    Args:
-        request (_type_, optional): auth. Defaults to None.
+        Args:
+            request (_type_, optional): auth. Defaults to None.
 
-    Returns:
-        str: the auth header or None
-    """
-    if request is None:
-        return None
-    return request.headers.get('Authorization', None)
+        Returns:
+            str: the auth header or None
+        """
+        if request is None:
+            return None
+        return request.headers.get('Authorization', None)
 
 
-def current_user(self, request=None) -> TypeVar('User'):
-    """Current User
+    def current_user(self, request=None) -> TypeVar('User'):
+        """Current User
 
-    Args:
-        request: the request user
+        Args:
+            request: the request user
 
-    Return:
-        the authenticated user
-    """
-    return request
+        Return:
+            the authenticated user
+        """
+        return request
