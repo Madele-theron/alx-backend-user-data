@@ -2,7 +2,7 @@
 """
 Module for basic authentication
 """
-from typing import TypeVar
+from typing import TypeVar, List
 from models.user import User
 from base64 import b64decode, binascii
 from api.v1.auth.auth import Auth
@@ -26,10 +26,15 @@ class BasicAuth(Auth):
         Returns:
             str: header in base64, else None
         """
-        if authorization_header is None or\
-            not isinstance(authorization_header, str) or\
-                authorization_header.startswith("Basic "):
+        if authorization_header is None:
             return None
+        if not isinstance(authorization_header, str):
+            return None
+        if authorization_header.startswith("Basic "):
+            return None
+        if not authorization_header.endswith(' '):
+            return None
+
         return authorization_header.split(" ")[1]
 
 
@@ -63,13 +68,13 @@ def extract_user_credentials(self,
     """Returns User email and password
     """
     if decode_base64_authorization_header is None:
-        return None, None
+        return (None, None)
     if ":" not in decode_base64_authorization_header:
-        return None, None
+        return (None, None)
     if not isinstance(decode_base64_authorization_header, str):
-        return None, None
+        return (None, None)
     user_cred = decode_base64_authorization_header.split(":", 1)
-    return user_cred[0], user_cred[1]
+    return (user_cred[0], user_cred[1])
 
 
 def user_object_from_credentials(self, user_email: str,
@@ -89,6 +94,7 @@ def user_object_from_credentials(self, user_email: str,
     if user_pwd is None or not isinstance(user_pwd, str):
         return None
     try:
+        users: List[TypeVar("User")]
         users = User.search({'email': user_email})
     except Exception:
         return None
@@ -96,6 +102,8 @@ def user_object_from_credentials(self, user_email: str,
     for user in users:
         if user.is_valid_password(user_pwd):
             return user
+
+    return None
 
 
 def current_user(self, request=None) -> TypeVar('User'):
