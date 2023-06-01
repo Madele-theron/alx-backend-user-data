@@ -30,7 +30,7 @@ class Auth:
             if paths.endswith('*'):
                 if path.startswith(paths[:-1]):
                     return False
-            if path == paths:
+            elif path == paths:
                 return False
         return True
 
