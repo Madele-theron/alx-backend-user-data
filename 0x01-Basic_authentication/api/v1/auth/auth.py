@@ -9,10 +9,7 @@ from flask import request
 class Auth:
     """Manages API authentication
     """
-
-    def __init__(self):
-        """This is the constructor
-        """
+    
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """Require authentication
