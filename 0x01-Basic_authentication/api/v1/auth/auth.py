@@ -33,6 +33,8 @@ class Auth:
                     return False
             if path in excluded_paths:
                 return False
+            if path == paths:
+                return False
         return True
 
 
