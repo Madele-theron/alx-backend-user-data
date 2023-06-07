@@ -19,6 +19,14 @@ class DB:
         Base.metadata.create_all(self._engine)
         self.__session = None
 
+    @property
+    def _session(self):
+        """ session getter """
+        if self.__session is None:
+            DBSession = sessionmaker(bind=self._engine)
+            self.__session = DBSession()
+        return self.__session
+
     def add_user(self, email: str, hashed_password: str) -> User:
         """
             Method to create a new user
