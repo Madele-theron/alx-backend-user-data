@@ -15,5 +15,21 @@ def main() -> str:
     return jsonify(message)
 
 
+@app.route("/users", methods=['POST'], strict_slashes=False)
+def register_user():
+    """End point to register a user"""
+    email = request.form.get('email')
+    pswd = request.form.get('password')
+
+    if email is None or pswd is None:
+        abort(400)
+
+    try:
+        user = AUTH.register_user(email, pswd)
+    except ValueError:
+        message = {"message": "email already registered"}
+        return jsonify(message), 400
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
