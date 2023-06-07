@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Module DB
+Module for the class DB
 """
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -64,3 +64,22 @@ class DB:
             raise NoResultFound
 
         return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Method that will find & update a user in the database
+
+        Args:
+            user_id (int): id of user that will be modified
+        """
+        if kwargs is None:
+            return None
+
+        user = self.find_user_by(id=user_id)
+        for key in kwargs.keys():
+            if key not in User.__table__.columns.keys():
+                raise ValueError
+
+        for key, value in kwargs.items():
+            setattr(user, key, value)
+
+        self._session.commit()
