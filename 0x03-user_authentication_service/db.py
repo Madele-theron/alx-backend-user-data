@@ -19,7 +19,6 @@ class DB:
         Base.metadata.create_all(self._engine)
         self.__session = None
 
-
     def add_user(self, email: str, hashed_password: str) -> User:
         """
             Method to create a new user
