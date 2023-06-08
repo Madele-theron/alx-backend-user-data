@@ -61,11 +61,10 @@ def logout() -> str:
     """Logs out a user / session
     """
     session = request.cookies.get('session_id')
-    user = AUTH.get_user_from_session_id(session_id=session)
-
     if session is None:
         abort(403)
 
+    user = AUTH.get_user_from_session_id(session_id=session)
     if user is None:
         abort(403)
 
