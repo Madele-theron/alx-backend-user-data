@@ -117,44 +117,44 @@ class Auth:
         except ValueError:
             return None
 
-    def get_reset_password_token(self, email: str) -> str:
-        """Method for user to reset password
+    # def get_reset_password_token(self, email: str) -> str:
+    #     """Method for user to reset password
 
-        Args:
-            email (str): email of user
+    #     Args:
+    #         email (str): email of user
 
-        Returns:
-            str: password token
-        """
-        if email is None:
-            raise ValueError
+    #     Returns:
+    #         str: password token
+    #     """
+    #     if email is None:
+    #         raise ValueError
 
-        try:
-            user = self._db.find_user_by(email=email)
-            token: str = _generate_uuid()
-            self._db.update_user((user.id), reset_token=token)
-            return token
+    #     try:
+    #         user = self._db.find_user_by(email=email)
+    #         token: str = _generate_uuid()
+    #         self._db.update_user((user.id), reset_token=token)
+    #         return token
 
-        except NoResultFound:
-            raise ValueError
+    #     except NoResultFound:
+    #         raise ValueError
 
-    def update_password(self, reset_token: str, password: str) -> None:
-        """Method to update the user password
+    # def update_password(self, reset_token: str, password: str) -> None:
+    #     """Method to update the user password
 
-        Args:
-            reset_token (str): token to reset password
-            password (str): users password
-        """
-        if reset_token is None or password is None:
-            return None
+    #     Args:
+    #         reset_token (str): token to reset password
+    #         password (str): users password
+    #     """
+    #     if reset_token is None or password is None:
+    #         return None
 
-        try:
-            user = self._db.find_user_by(reset_token=reset_token)
-        except NoResultFound:
-            raise ValueError
+    #     try:
+    #         user = self._db.find_user_by(reset_token=reset_token)
+    #     except NoResultFound:
+    #         raise ValueError
 
-        pswd = _hash_password(password)
+    #     pswd = _hash_password(password)
 
-        self._db.update_user(
-            (user.id), hashed_password=pswd,
-            reset_token=None)
+    #     self._db.update_user(
+    #         (user.id), hashed_password=pswd,
+    #         reset_token=None)
