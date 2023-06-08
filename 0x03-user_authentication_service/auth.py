@@ -27,6 +27,10 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
+    def _generate_uuid() -> str:
+        """ uuid generator """
+        return str(uuid4())
+
     def register_user(self, email: str, password: str) -> User:
         """Method to register a new user with auth
 
@@ -65,7 +69,3 @@ class Auth:
             return False
         else:
             return valid
-
-    def _generate_uuid() -> str:
-        """ uuid generator """
-        return str(uuid4())
