@@ -90,7 +90,7 @@ def reset_password() -> str:
     """reset the password of user
     """
     try:
-        email = request.form('email')
+        email = request.form.get('email')
     except KeyError:
         abort(403)
 
