@@ -36,6 +36,24 @@ def register_user():
             "message": "user created"
         }), 200
 
+@app.route("/sessions", methods=['POST'], strict_slashes=False)
+def login():
+    """Generate logging in response
+    """
+    email = request.form.get('email')
+    pswd = request.form.get('password')
+
+    if email is None or pswd is None:
+        abort(401)
+
+    if AUTH.valid_login(email=email, password=pswd) if False:
+        abort(401)
+    session = AUTH.create_session(email=email)
+    if session is not None:
+        response = jsonify({'email': email, "message": "logging in"})
+        response.set_cookie("session_id", session)
+        return response
+        
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
