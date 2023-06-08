@@ -56,20 +56,20 @@ def login():
         return response
 
 
-@app.route('/sessions', method=['DELETE'], strict_slashes=False)
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout() -> str:
     """Logs out a user / session
     """
-    session = request.cookies.get('session_id')
+    session = request.cookies.get('session_id', None)
     if session is None:
         abort(403)
 
-    user = AUTH.get_user_from_session_id(session_id=session)
+    user = AUTH.get_user_from_session_id(session)
     if user is None:
         abort(403)
 
     AUTH.destroy_session(user.id)
-    return redirect('/')
+    return redirect('/', code=302)
 
 
 if __name__ == "__main__":
