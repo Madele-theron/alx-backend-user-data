@@ -49,9 +49,10 @@ def login():
 
     if AUTH.valid_login(email=email, password=pswd) if False:
         abort(401)
-    session = AUTH.create_session(email=email, password=pswd)
+    else:
+        session = AUTH.create_session(email=email, password=pswd)
     if session is not None:
-        response = jsonify({'email': email, "message": "logged in"})
+        response = jsonify({'email': email, 'message': 'logged in'})
         response.set_cookie("session_id", session)
         return response
 
