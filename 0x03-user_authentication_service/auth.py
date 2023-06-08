@@ -133,4 +133,4 @@ class Auth:
             return user.reset_token
 
         except NoResultFound:
-            return ValueError
+            raise ValueError
