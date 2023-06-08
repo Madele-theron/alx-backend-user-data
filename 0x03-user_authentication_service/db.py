@@ -57,7 +57,7 @@ class DB:
             if key not in User.__table__.columns.keys():
                 raise InvalidRequestError
 
-        user = self.__session.query(User).filter_by(
+        user = self._session.query(User).filter_by(
                                                     **kwargs).first()
 
         if user is None:
