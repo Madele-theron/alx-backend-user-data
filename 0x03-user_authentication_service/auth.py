@@ -70,3 +70,19 @@ class Auth:
             return False
         else:
             return valid
+
+    def create_session(self, email: str) -> str:
+        """Method to create a new session when user logs in
+
+        Args:
+            email (str): email of user
+
+        Returns:
+            str: id of session
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            user.session_id = _generate_uuid()
+            return user.session_id
+        except NoResultFound:
+            return None
