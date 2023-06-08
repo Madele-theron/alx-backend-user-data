@@ -101,7 +101,7 @@ def reset_password() -> str:
 
     return jsonify(
         {"email": email, "reset_token": token}
-        ), 200
+        )
 
 
 if __name__ == "__main__":
